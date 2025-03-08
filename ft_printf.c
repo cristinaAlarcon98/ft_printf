@@ -65,12 +65,20 @@ int ft_printf(const char *str, ...)
 void handle_input(char *str_pointer, va_list args)
 {
     if (str_pointer[0] == 's')
-        ft_put_str(va_arg(args, char*), 1);
+        ft_put_str_fd(va_arg(args, char*), 1);
     if (str_pointer[0] == 'd')
         ft_putnbr_fd(va_arg(args, int), 1);
+    if (str_pointer[0] == 'c')
+        ft_putchar_fd(va_arg(args, int), 1);
+    if (str_pointer[0] == 'p')
+        ft_putptr_fd(va_arg(args, void *), 1);
+        
 }
 
 int main()
 {
-    ft_printf("Var num %d  %s", 12, "hola");
+    int x;
+    x = 6;
+    printf("%p\n", &x);
+    ft_printf("Var num %d  %s %c %p ", 12, "hola", 'c', &x);
 }

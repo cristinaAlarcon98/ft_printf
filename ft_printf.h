@@ -10,8 +10,10 @@ int ft_printf(const char *str, ...);
 void	ft_putchar_fd(char c, int fd);
 char *get_next_type(char *str);
 int get_num_vars(const char *str);
-void	ft_put_str(char *str, int fd);
+void	ft_put_str_fd(char *str, int fd);
 void handle_input(char *str_pointer, va_list args);
+void ft_putptr_fd(void *ptr, int fd);
+
 
 
 
