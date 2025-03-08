@@ -39,6 +39,8 @@ void	ft_putchar_fd(char c, int fd)
 	write(fd, &c, 1);
 }
 
+
+
 void	ft_put_str_fd(char *str, int fd)
 {
 	while(*str)
@@ -47,6 +49,15 @@ void	ft_put_str_fd(char *str, int fd)
 		str++;
 
 	}
+}
+
+void	ft_put_special_char(char c, int fd)
+{
+	char *ptr;
+
+	ptr = &c;
+	
+	write(fd, ptr, 1);
 }
 
 char *parse_to_exadecimal(unsigned long long adress)
@@ -68,24 +79,41 @@ char *parse_to_exadecimal(unsigned long long adress)
 void ft_putptr_fd(void *ptr, int fd)
 {
     unsigned long long address;
+	char *hex_digits;
+
 	
     write(fd, "0", 1);
 	write(fd, "x", 1);
 
     address = (unsigned long long)ptr;
-	ft_puthexa_fd(address, fd);
+	hex_digits = "0123456789abcdef";
+	ft_puthexa_fd(address, fd, hex_digits);
 	
 }
 
-void ft_puthexa_fd(unsigned long long num,int fd)
+void ft_puthexa_lower_case(unsigned int num, int fd)
+{
+	char *hex_digits;
+	hex_digits = "0123456789abcdef";
+	
+    ft_puthexa_fd((unsigned long long)num, fd, hex_digits);
+}
+
+void ft_puthexa_upper_case(unsigned int num, int fd)
+{
+	char *hex_digits;
+	hex_digits = "0123456789ABCDEF";
+	
+    ft_puthexa_fd((unsigned long long)num, fd, hex_digits);
+}
+
+void ft_puthexa_fd(unsigned long long num, int fd, char *hex_digits)
 {
 	
-	char *hex_digits;
 	int reminder;
 	char buffer[16];
 	int i; 
 
-	hex_digits = "0123456789abcdef";
 	reminder = 0;
 	if (num == 0)
 	{

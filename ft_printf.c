@@ -75,15 +75,21 @@ void handle_input(char *str_pointer, va_list args)
     if (str_pointer[0] == 'u')
         ft_putunsig_fd(va_arg(args, unsigned int), 1);   
     if (str_pointer[0] == 'x')
-        ft_puthexa_fd((unsigned long long)va_arg(args, unsigned int), 1);
+        ft_puthexa_lower_case(va_arg(args, unsigned int), 1);
+    if (str_pointer[0] == 'X')
+        ft_puthexa_upper_case(va_arg(args, unsigned int), 1);
+    if (str_pointer[0] == '%')
+        ft_put_special_char('%', 1);
+         /*    write(1, "%", 1); */
+
 }
 
 int main()
 {
     int x;
     x = 6;
-    printf("Var num %d %s %c %p %u %x", 12, "hola", 'c', &x, -1, 652738);
-    ft_printf("Var num %d %s %c %p %u %x", 12, "hola", 'c', &x, -1, 652738);
+    //printf("%%");
+    ft_printf("%%");
 
 
 
