@@ -20,6 +20,20 @@ void	ft_putnbr_fd(int n, int fd)
 		ft_putchar_fd(num + '0', fd);
 }
 
+void	ft_putunsig_fd(unsigned int n, int fd)
+{
+	long	num;
+
+	num = n;
+	if (num >= 10)
+	{
+		ft_putnbr_fd(num / 10, fd);
+		ft_putchar_fd((num % 10) + '0', fd);
+	}
+	else
+		ft_putchar_fd(num + '0', fd);
+}
+
 void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
@@ -54,28 +68,35 @@ char *parse_to_exadecimal(unsigned long long adress)
 void ft_putptr_fd(void *ptr, int fd)
 {
     unsigned long long address;
+	
+    write(fd, "0", 1);
+	write(fd, "x", 1);
+
+    address = (unsigned long long)ptr;
+	ft_puthexa_fd(address, fd);
+	
+}
+
+void ft_puthexa_fd(unsigned long long num,int fd)
+{
+	
 	char *hex_digits;
 	int reminder;
 	char buffer[16];
 	int i; 
 
-
-    write(fd, "0", 1);
-	write(fd, "x", 1);
-
-	address = (unsigned long long)ptr;
 	hex_digits = "0123456789abcdef";
 	reminder = 0;
-	if (address == 0)
+	if (num == 0)
 	{
     	write(fd, "0", 1);
     	return;
 	}
 	i = 0;
-	while(address != 0)
+	while(num != 0)
 	{
-		buffer[i] = hex_digits[address % 16];
-		address = address / 16;
+		buffer[i] = hex_digits[num % 16];
+		num = num / 16;
 		i++;
 	}
 	while(--i != 0)

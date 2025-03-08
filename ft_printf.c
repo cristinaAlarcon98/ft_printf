@@ -66,19 +66,25 @@ void handle_input(char *str_pointer, va_list args)
 {
     if (str_pointer[0] == 's')
         ft_put_str_fd(va_arg(args, char*), 1);
-    if (str_pointer[0] == 'd')
+    if (str_pointer[0] == 'd' || str_pointer[0] == 'i')
         ft_putnbr_fd(va_arg(args, int), 1);
     if (str_pointer[0] == 'c')
         ft_putchar_fd(va_arg(args, int), 1);
     if (str_pointer[0] == 'p')
         ft_putptr_fd(va_arg(args, void *), 1);
-        
+    if (str_pointer[0] == 'u')
+        ft_putunsig_fd(va_arg(args, unsigned int), 1);   
+    if (str_pointer[0] == 'x')
+        ft_puthexa_fd((unsigned long long)va_arg(args, unsigned int), 1);
 }
 
 int main()
 {
     int x;
     x = 6;
-    printf("%p\n", &x);
-    ft_printf("Var num %d  %s %c %p ", 12, "hola", 'c', &x);
+    printf("Var num %d %s %c %p %u %x", 12, "hola", 'c', &x, -1, 652738);
+    ft_printf("Var num %d %s %c %p %u %x", 12, "hola", 'c', &x, -1, 652738);
+
+
+
 }

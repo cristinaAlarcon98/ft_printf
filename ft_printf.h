@@ -13,6 +13,9 @@ int get_num_vars(const char *str);
 void	ft_put_str_fd(char *str, int fd);
 void handle_input(char *str_pointer, va_list args);
 void ft_putptr_fd(void *ptr, int fd);
+void	ft_putunsig_fd(unsigned int n, int fd);
+void ft_puthexa_fd(unsigned long long num,int fd);
+
 
 
 
