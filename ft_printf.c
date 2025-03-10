@@ -34,16 +34,15 @@ char *get_next_type(char *str)
         }
         str++;
     }
+    return (str);
 }
 
 int ft_printf(const char *str, ...)
 {
     
-    
     int num_vars;
     int i;
-    char *buff;
-    int int_ptr;
+    int count;
     char *str_pointer;
 
     va_list args;
@@ -51,46 +50,48 @@ int ft_printf(const char *str, ...)
     
     num_vars = get_num_vars(str);
     i = 0;
+    count = 0;
     str_pointer = (char *)str;
-    while(i < num_vars)
-    {
-        str_pointer = get_next_type(str_pointer);
-        handle_input(str_pointer, args);
-        i++;
+    while(str[i])
+    {   
+        if(str[i]== '%')
+        {
+    
+            handle_input((char*)&str[i + 1], &count, args);
+            i += 2;
+        }
+        else
+        {
+            write(1, &str[i], 1);
+            count++;
+            i++;
+        }
+            
+        
+        
     }
     va_end(args);
-    return 0;
+    return (count);
 }
 
-void handle_input(char *str_pointer, va_list args)
+void handle_input(char *str_pointer, int *count, va_list args)
 {
     if (str_pointer[0] == 's')
-        ft_put_str_fd(va_arg(args, char*), 1);
+        ft_put_str_fd(va_arg(args, char*), count, 1);
     if (str_pointer[0] == 'd' || str_pointer[0] == 'i')
-        ft_putnbr_fd(va_arg(args, int), 1);
+        ft_putnbr_fd(va_arg(args, int), count, 1);
     if (str_pointer[0] == 'c')
-        ft_putchar_fd(va_arg(args, int), 1);
+        ft_putchar_fd(va_arg(args, int), count,  1);
     if (str_pointer[0] == 'p')
-        ft_putptr_fd(va_arg(args, void *), 1);
+        ft_putptr_fd(va_arg(args, void *), count, 1);
     if (str_pointer[0] == 'u')
-        ft_putunsig_fd(va_arg(args, unsigned int), 1);   
+        ft_putunsig_fd(va_arg(args, unsigned int), count,  1);   
     if (str_pointer[0] == 'x')
-        ft_puthexa_lower_case(va_arg(args, unsigned int), 1);
+        ft_puthexa_lower_case(va_arg(args, unsigned int), count,  1);
     if (str_pointer[0] == 'X')
-        ft_puthexa_upper_case(va_arg(args, unsigned int), 1);
+        ft_puthexa_upper_case(va_arg(args, unsigned int),count, 1);
     if (str_pointer[0] == '%')
-        ft_put_special_char('%', 1);
-         /*    write(1, "%", 1); */
+        ft_put_special_char('%', count, 1);
 
 }
 
-int main()
-{
-    int x;
-    x = 6;
-    //printf("%%");
-    ft_printf("%%");
-
-
-
-}
