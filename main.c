@@ -1,8 +1,7 @@
-
- #include "ft_printf.h"
+#include "ft_printf.h"
 int main()
 {
-    char *name;
+     char *name;
     int n;
     int num;
 
@@ -56,18 +55,55 @@ int main()
     num = ft_printf("Hello my pointer is %p\n", p);
     printf("%d", num);
 
+    printf("\n...............................\n");   
+
+    char *point = 0;
+    num = printf("%p\n", point);
+    printf("%d", num);
+    
+    printf("\n...............................\n");  
+    num = ft_printf("%p\n", point);
+    printf("%d", num);
+
+
 
     printf("\n...............................\n");   
 
-    unsigned long long u = 8520982409;  // Using unsigned long long
+    unsigned int u = 852099;  
 
 
-    // Using the correct format specifier %llu for unsigned long long
-    num = printf("Hello my unsigned integer is %llu\n", u);
+    num = printf("Hello my unsigned integer is %u\n", u);
     printf("%d\n", num);
 
-    // Assuming ft_printf is implemented correctly, use the same %llu specifier
-    num = ft_printf("Hello my unsigned integer is %llu\n", u);
+    num = ft_printf("Hello my unsigned integer is %u\n", u);
     printf("%d\n", num);
 
+
+
+
+
+    printf("\n...............................\n");   
+
+    unsigned int x = 852099;  
+
+
+    num = printf("Hello my unsigned integer is %x\n", x);
+    printf("%d\n", num);
+
+    num = ft_printf("Hello my unsigned integer is %x\n", x);
+    printf("%d\n", num);
+
+
+
+     printf("\n...............................\n");   
+
+    unsigned int X = 852099;  
+
+
+    num = printf("Hello my unsigned integer is %X\n", x);
+    printf("%d\n", num);
+
+    num = ft_printf("Hello my unsigned integer is %X\n", x);
+    printf("%d\n", num);
+ 
 }

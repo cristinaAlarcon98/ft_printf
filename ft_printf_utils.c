@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cralarco <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/13 19:10:55 by cralarco          #+#    #+#             */
+/*   Updated: 2025/03/13 19:37:11 by cralarco         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "ft_printf.h"
 
 void	ft_putnbr_fd(int n, int *count, int fd)
@@ -40,40 +50,36 @@ void	ft_putchar_fd(char c, int *count, int fd)
 {
 	write(fd, &c, 1);
 	(*count)++;
-
 }
-
-
 
 void	ft_put_str_fd(char *str, int *count, int fd)
 {
+	char	*str_null;
+
 	if (str == NULL)
 	{
-		write_null(fd, count);
+		str_null = "(null)";
+		write_str(str_null, fd, count);
 	}
 	else
 	{
-		while(*str)
+		while (*str)
 		{
 			write(fd, str, 1);
 			(*count)++;
 			str++;
 		}
-	}
-		
-	
+	}	
 }
 
-void write_null(int fd, int *count)
+void	write_str(char *str, int fd, int *count)
 {
-	char* str_null;
-
-	str_null = "(null)";
-	while(*str_null)
+	
+	while(*str)
 	{
-		write(fd, str_null, 1);
+		write(fd, str, 1);
 		(*count)++;
-		str_null++;
+		str++;
 	}
 }
 
@@ -93,7 +99,13 @@ void ft_putptr_fd(void *ptr, int *count, int fd)
     unsigned long long address;
 	char *hex_digits;
 
-	
+	if ((int*)ptr == 0)
+	{
+		char* str_nil;
+		str_nil = "(nil)";
+		write_str(str_nil,fd, count);
+		return;
+	}
     write(fd, "0", 1);
 	write(fd, "x", 1);
 	*count += 2;
@@ -117,12 +129,11 @@ void ft_puthexa_upper_case(unsigned int num, int *count, int fd)
 	char *hex_digits;
 	hex_digits = "0123456789ABCDEF";
 	
-    ft_puthexa_fd((unsigned long long)num, fd, hex_digits, count);
+	ft_puthexa_fd((unsigned long long)num, fd, hex_digits, count);
 }
 
 void ft_puthexa_fd(unsigned long long num, int fd, char *hex_digits, int *count)
 {
-	
 	int reminder;
 	char buffer[16];
 	int i; 
@@ -137,17 +148,14 @@ void ft_puthexa_fd(unsigned long long num, int fd, char *hex_digits, int *count)
 	i = 0;
 	while(num != 0)
 	{
-		buffer[i] = hex_digits[num % 16];
+		buffer[i++] = hex_digits[num % 16];
 		num = num / 16;
-		i++;
 	}
 	while(--i != 0)
 	{
 		write(fd, &buffer[i], 1);
 		(*count)++;
-
 	}
 	write(fd, &buffer[i], 1);
 	(*count)++;
 }
-

@@ -18,7 +18,7 @@ void ft_putptr_fd(void *ptr, int *count, int fd);
 void ft_puthexa_lower_case(unsigned int num,int *count, int fd);
 void ft_puthexa_upper_case(unsigned int num, int *count, int fd);
 void	ft_put_special_char(char c, int *count, int fd);
-void write_null(int fd, int *count);
+void write_str(char *str, int fd, int *count);
 
 
 
